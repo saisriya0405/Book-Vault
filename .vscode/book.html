@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - BookVault</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    main {
+      max-width: 800px; /* Adjusted for better laptop display */
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding: 15px 0;
+    }
+    .cart-item img {
+      width: 60px;  /* Adjusted size */
+      height: 80px; /* Adjusted size */
+      object-fit: cover;
+      border-radius: 4px; /* Slightly smaller */
+      margin-right: 20px;
+    }
+    .cart-info {
+      flex: 1;
+    }
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cart-controls input {
+      width: 40px;
+      text-align: center;
+      border: 1px solid #ccc; /* To make it more visible */
+    }
+    .total {
+      text-align: right;
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    button {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BookVault - Cart</h1>
+    <a href="index.html" style="color: white; text-decoration: none;">Home</a>
+  </header>
+
+  <main>
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <div class="total" id="totalPrice">Total: ₹0</div>
+  </main>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let total = 0;
+      $('#cartItems').empty();
+
+      $.each(cart, function(index, item) {
+        const bookTotal = item.price * item.quantity;
+        total += bookTotal;
+        const itemHtml = `
+          <div class="cart-item" data-index="${index}">
+            <img src="${item.image}" alt="${item.title}" />
+            <div class="cart-info">
+              <h4>${item.title}</h4>
+              <p>by ${item.author}</p>
+              <p>₹${item.price} x ${item.quantity} = ₹${bookTotal}</p>
+            </div>
+            <div class="cart-controls">
+              <button class="decrease">-</button>
+              <input type="text" value="${item.quantity}" readonly />
+              <button class="increase">+</button>
+              <button class="remove"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        $('#cartItems').append(itemHtml);
+      });
+
+      $('#totalPrice').text(`Total: ₹${total}`); // Fixed syntax
+    }
+
+    $(document).on('click', '.increase', function() {
+      const index = $(this).closest('.cart-item').data('index');
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity++;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    });
+
+    $(document).on('click', '.decrease', function() {
+      const index = $(this).closest('.cart-item').data('index');
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity--;
+      if (cart[index].quantity <= 0) cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    });
+
+    $(document).on('click', '.remove', function() {
+      const index = $(this).closest('.cart-item').data('index');
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    });
+
+    $(document).ready(function() {
+      loadCart();
+    });
+  </script>
+</body>
+</html>

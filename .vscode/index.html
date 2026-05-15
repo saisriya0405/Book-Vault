@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookVault - Discover Your Next Great Read</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #2c3e50;
+      color: white;
+    }
+    .logo {
+      font-size: 24px;
+    }
+    .search-bar input {
+      padding: 5px;
+      border: none;
+      border-radius: 4px;
+    }
+    .cart {
+      display: flex;
+      align-items: center;
+    }
+    .cart-count {
+      margin-left: 10px;
+      background: #e74c3c;
+      border-radius: 50%;
+      padding: 5px 10px;
+      color: white;
+    }
+    .hero {
+      text-align: center;
+      padding: 20px;
+    }
+    .categories {
+      display: flex;
+      justify-content: space-around; /* Space items evenly */
+      flex-wrap: wrap; /* Allow wrapping to the next line */
+      padding: 20px;
+    }
+    .category-card {
+      flex: 1 1 30%; /* Flex-grow, flex-shrink, flex-basis */
+      margin: 10px; /* Space between cards */
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .category-card img {
+      width: 100%; /* Make image responsive */
+      height: auto; /* Maintain aspect ratio */
+    }
+    .category-card h3 {
+      margin: 10px 0;
+    }
+    .category-card p {
+      margin: 0;
+      padding: 0 10px 10px;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">📖</span>
+      BookVault
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search books, authors, genres..." />
+    </div>
+    <div class="cart">
+      <span class="cart-icon">🛒</span>
+      <a href="cart.html">Cart</a>
+      <span class="cart-count">0</span>
+    </div>
+    <div class="signup-link" style="margin-left: 20px;">
+      <a href="signup.html" style="text-decoration: none; font-weight: bold;">Signup</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Discover Your Next Great Read</h1>
+    <p>Explore thousands of e-books across every genre. Start reading instantly with our digital library.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary">Browse Catalog</button>
+      <button class="btn-secondary">Free Samples</button>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="category-card" onclick="goToCategory('Technology')">
+      <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=60" alt="Technology" />
+      <h3>Technology</h3>
+      <p>⭐ 4.8</p>
+    </div>
+
+    <div class="category-card" onclick="goToCategory('Self-Help')">
+      <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=60" alt="Self-Help" />
+      <h3>Self-Help</h3>
+      <p>⭐ 4.9</p>
+    </div>
+
+    <div class="category-card" onclick="goToCategory('Architecture')">
+      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60" alt="Architecture" />
+      <h3>Architecture</h3>
+      <p>⭐ 4.7</p>
+    </div>
+  </section>
+
+  <!-- Browse by Category -->
+  <section class="section">
+    <h2>Browse by Category</h2>
+    <div class="category-grid">
+      <div class="category" onclick="goToCategory('Fiction')">Fiction</div>
+      <div class="category" onclick="goToCategory('Non-Fiction')">Non-Fiction</div>
+      <div class="category" onclick="goToCategory('Mystery')">Mystery</div>
+      <div class="category" onclick="goToCategory('Mythology')">Mythology</div>
+      <div class="category" onclick="goToCategory('Sci-Fi')">Sci-Fi</div>
+      <div class="category" onclick="goToCategory('Biography')">Biography</div>
+      <div class="category" onclick="goToCategory('Business')">Business</div>
+      <div class="category" onclick="goToCategory('Technology')">Technology</div>
+      <div class="category" onclick="goToCategory('Self-Help')">Self-Help</div>
+      <div class="category" onclick="goToCategory('History')">History</div>
+      <div class="category" onclick="goToCategory('Art')">Art</div>
+      <div class="category" onclick="goToCategory('Cooking')">Cooking</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-column">
+      <div class="footer-logo">BookVault</div>
+      <p>Your gateway to infinite knowledge and entertainment.</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Browse Books</a></li>
+        <li><a href="#">New Releases</a></li>
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Free Books</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Reading Apps</a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="#">Sign In</a></li>
+        <li><a href="#">My Library</a></li>
+        <li><a href="#">Wishlist</a></li>
+        <li><a href="#">Account Settings</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="copyright">
+    &copy; 2024 BookVault. All rights reserved.
+  </div>
+
+  <script>
+    // Function for cards click
+    function goToCategory(category) {
+      localStorage.setItem("selectedCategory", category);
+      window.location.href = "category.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookVault - Category</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #2c3e50;
+      color: white;
+    }
+    .logo {
+      font-size: 24px;
+    }
+    .search-bar input {
+      padding: 5px;
+      border: none;
+      border-radius: 4px;
+    }
+    .cart {
+      display: flex;
+      align-items: center;
+    }
+    .cart-count {
+      margin-left: 10px;
+      background: #e74c3c;
+      border-radius: 50%;
+      padding: 5px 10px;
+      color: white;
+    }
+    .section {
+      padding: 20px;
+    }
+    #bookList {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping to the next line */
+      gap: 20px; /* Space between cards */
+    }
+    .book-card {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 200px; /* Fixed width for cards */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden; /* Prevent overflow */
+    }
+    .book-card img {
+      width: 100%; /* Make image responsive */
+      height: auto; /* Maintain aspect ratio */
+    }
+    .content {
+      padding: 10px;
+    }
+    .badge {
+      font-weight: bold;
+    }
+    .rating {
+      color: #f39c12; /* Gold color for rating */
+    }
+    .price {
+      font-size: 18px;
+      color: #e74c3c; /* Red color for price */
+    }
+    .card-actions {
+      margin-top: 10px;
+    }
+    .add-btn {
+      background: #2c3e50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .add-btn:hover {
+      background: #34495e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">📖</span>
+      BookVault
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search books..." />
+    </div>
+    <div class="cart">
+      <span class="cart-icon">🛒</span>
+      <a href="cart.html">Cart</a>
+      <span class="cart-count">0</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2 id="categoryTitle">Books</h2>
+    <div class="book-list" id="bookList">
+      <!-- Books will appear dynamically here -->
+    </div>
+  </section>
+
+  <script>
+    const booksByCategory = {
+      "Mystery": [
+        { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson", rating: 4.6, image: "https://images.unsplash.com/photo-1610116306796-6fea5f2c36ef", price: 349 },
+        { title: "Gone Girl", author: "Gillian Flynn", rating: 4.7, image: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d", price: 299 }
+      ],
+      "Mythology": [
+        { title: "The Palace of Illusions", author: "Chitra Banerjee Divakaruni", rating: 4.5, image: "https://images.unsplash.com/photo-1576109301664-2d5d14f7f3a9", price: 349 },
+        { title: "Mythos", author: "Stephen Fry", rating: 4.6, image: "https://images.unsplash.com/photo-1531219432768-9f540ce91ef6", price: 449 }
+      ],
+      "Sci-Fi": [
+        { title: "Dune", author: "Frank Herbert", rating: 4.9, image: "https://images.unsplash.com/photo-1549921296-3a2b2047a8c1", price: 599 },
+        { title: "The Martian", author: "Andy Weir", rating: 4.8, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", price: 399 }
+      ],
+      "Fiction": [
+        { title: "Dune", author: "Frank Herbert", rating: 4.9, image: "https://images.unsplash.com/photo-1549921296-3a2b2047a8c1", price: 599 },
+        { title: "The Martian", author: "Andy Weir", rating: 4.8, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", price: 399 }
+      ],
+      "Biography": [
+        { title: "The Diary of a Young Girl", author: "Anne Frank", rating: 4.8, image: "https://images.unsplash.com/photo-1473187983305-f615310e7daa", price: 249 },
+        { title: "Long Walk to Freedom", author: "Nelson Mandela", rating: 4.9, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", price: 399 }
+      ],
+      "Business": [
+        { title: "Rich Dad Poor Dad", author: "Robert Kiyosaki", rating: 4.8, image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c", price: 299 },
+        { title: "Zero to One", author: "Peter Thiel", rating: 4.7, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", price: 399 }
+      ],
+      "Non-Fiction": [
+        { title: "Rich Dad Poor Dad", author: "Robert Kiyosaki", rating: 4.8, image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c", price: 299 },
+        { title: "Zero to One", author: "Peter Thiel", rating: 4.7, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66", price: 399 }
+      ],
+      "Technology": [
+        { title: "Clean Code", author: "Robert C. Martin", rating: 4.9, image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d", price: 699 },
+        { title: "The Pragmatic Programmer", author: "Andrew Hunt", rating: 4.8, image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085", price: 799 }
+      ],
+      "Self-Help": [
+        { title: "Atomic Habits", author: "James Clear", rating: 4.9, image: "https://images.unsplash.com/photo-1553729459-efe14ef6055d", price: 350 },
+        { title: "The Power of Now", author: "Eckhart Tolle", rating: 4.8, image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570", price: 299 }
+      ],
+      "History": [
+        { title: "Guns, Germs, and Steel", author: "Jared Diamond", rating: 4.7, image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d", price: 399 },
+        { title: "The Silk Roads", author: "Peter Frankopan", rating: 4.8, image: "https://images.unsplash.com/photo-1532012197267-da84d127e765", price: 499 }
+      ],
+      "Art": [
+        { title: "The Story of Art", author: "E.H. Gombrich", rating: 4.7, image: "https://images.unsplash.com/photo-1500336624523-d727130c3328", price: 499 },
+        { title: "Ways of Seeing", author: "John Berger", rating: 4.6, image: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d", price: 299 }
+      ],
+      "Architecture": [
+        { title: "The Architecture of Happiness", author: "Alain de Botton", rating: 4.5, image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60", price: 399 },
+        { title: "Towards a New Architecture", author: "Le Corbusier", rating: 4.6, image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60", price: 499 }
+      ]
+    };
+
+    const selectedCategory = localStorage.getItem("selectedCategory") || "Fiction";
+    document.getElementById("categoryTitle").innerText = selectedCategory + " Books";
+
+    const bookListContainer = document.getElementById("bookList");
+    const books = booksByCategory[selectedCategory] || [];
+
+    books.forEach(book => {
+      const card = document.createElement("div");
+      card.classList.add("book-card");
+      card.innerHTML = `
+        <img src="${book.image}" alt="${book.title}">
+        <div class="content">
+          <div class="badge">${book.author}</div>
+          <div class="rating">⭐ ${book.rating}</div>
+          <div class="book-title">${book.title}</div>
+          <div class="price">₹${book.price}</div>
+          <div class="card-actions">
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      `;
+      bookListContainer.appendChild(card);
+    });
+
+    // Add to Cart functionality
+    document.addEventListener("click", function(e){
+      if(e.target.classList.contains("add-btn")){
+        const bookTitle = e.target.closest('.book-card').querySelector('.book-title').innerText;
+        const bookPrice = parseInt(e.target.closest('.book-card').querySelector('.price').innerText.replace('₹', ''));
+        const bookImage = e.target.closest('.book-card').querySelector('img').src;
+        const bookAuthor = e.target.closest('.book-card').querySelector('.badge').innerText;
+
+        // Create a book object
+        const book = { title: bookTitle, price: bookPrice, image: bookImage, author: bookAuthor, quantity: 1 };
+
+        // Get existing cart from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Check if the book is already in the cart
+        const existingBookIndex = cart.findIndex(item => item.title === book.title);
+        if (existingBookIndex > -1) {
+          // If it exists, increase the quantity
+          cart[existingBookIndex].quantity++;
+        } else {
+          // If it doesn't exist, add it to the cart
+          cart.push(book);
+        }
+
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Update cart count
+        const countEl = document.querySelector(".cart-count");
+        countEl.textContent = cart.length;
+
+        alert("Book added to cart!");
+      }
+    });
+  </script>
+</body>
+</html>
